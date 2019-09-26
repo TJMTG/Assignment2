@@ -1,1 +1,53 @@
-<p>profile works!</p>
+<div class="card" id="groupList">
+  <div class="card-body">
+    <h4 class="card-title text-center mb-4 mt-1">Your Groups</h4>
+    <div class="just-padding">
+      <div class="list-group list-group-root well">
+        <!--groups-->
+        <div *ngFor="let group of groups">
+          <a class="list-group-item" (click)="toggleCollapse(group.name)">
+              <!--<i class="material-icons">
+                  keyboard_arrow_down
+                  </i>-->
+                  <mdb-icon fas icon="angle-down"></mdb-icon>
+            {{group.name}}
+          </a>
+          <!--channels-->
+          <div class="list-group collapse" id="{{group.name}}">
+            <div *ngIf="group.channels.length == 0">
+              <a class="list-group-item">
+                <i class="glyphicon glyphicon-chevron-right"></i>This group has no channels.
+              </a>
+            </div>
+            <div *ngFor="let channel of group.channels">
+              <a class="list-group-item">
+                <i class="glyphicon glyphicon-chevron-right"></i>{{channel.name}}
+              </a>
+            </div>
+          </div>
+          <!--/channels-->
+        </div>
+        <!--/groups-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+  <tr style="padding-top:20px;" *ngFor="let product of products"> 
+    <td>{{product.id}}</td> 
+    <td>{{product.name}}</td>  
+    <td>{{product.units}}</td>  
+    <td>
+      <span class="btn btn-primary" [routerLink]="['/update',product._id]"> 
+        <i class="fa fa-spinner"></i>
+        Edit
+      </span> 
+      &nbsp; 
+      <span class="btn btn-primary" (click)="deleteproduct(product._id)">
+        <i class="fa fa-trash"></i>
+        Delete
+      </span>
+    </td>      
+  </tr>
+-->
