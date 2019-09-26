@@ -1,3 +1,19 @@
+
+<!-- Profile Info -->
+<div class="card">
+  <img class="card-img-top" src="..." alt="Your profile picture.">
+  <div class="card-body">
+    <h5 class="card-title">Your Profile</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{profile.name}}</h6>
+    <p class="card-text">You are a '{{profile.role}}'.</p>
+    <form>
+        <button type="submit" class="btn btn-primary btn-block" (click)="uploadClicked()" id="uploadButton">Upload Profile Pic</button>
+    </form>
+  </div>
+</div>
+<!-- /Profile Info -->
+
+<!-- Group & Channel List -->
 <div class="card" id="groupList">
   <div class="card-body">
     <h4 class="card-title text-center mb-4 mt-1">Your Groups</h4>
@@ -6,47 +22,27 @@
         <!--groups-->
         <div *ngFor="let group of groups">
           <a class="list-group-item" (click)="toggleCollapse(group.name)">
-            <!--<mdb-icon fas icon="angle-right" id="icon_{{group.name}}"></mdb-icon>-->
-            <!--<i class="fa-angle-down fas" ng-reflect-klass="fa-angle-right " ng-reflect-ng-class="[object Object]">-->
-            <i class="fa-angle-right fas" id="icon_{{group.name}}"></i>
-            {{group.name}}
+            <i class="fa-angle-right fas" id="icon_{{group.name}}"></i>{{group.name}}
           </a>
           <!--channels-->
           <div class="list-group collapse" id="list_{{group.name}}">
             <div *ngIf="group.channels.length == 0">
-              <a class="list-group-item">This group has no channels.</a>
+              <a class="list-group-item">You are not in any channels in this group.</a>
             </div>
-            <ul>
               <div *ngFor="let channel of group.channels">
-                <li>
-                    <a class="list-group-item">{{channel.name}}</a>
-                </li>
+                <a class="list-group-item">{{channel.name}}</a>
               </div>
-            </ul>
           </div>
           <!--/channels-->
         </div>
         <!--/groups-->
+        <!--no groups-->
+        <div *ngIf="groups.length == 0">
+          <a class="list-group-item">You are not in any groups.</a>
+        </div>
+        <!--/no groups-->
       </div>
     </div>
   </div>
 </div>
-
-<!--
-  <tr style="padding-top:20px;" *ngFor="let product of products"> 
-    <td>{{product.id}}</td> 
-    <td>{{product.name}}</td>  
-    <td>{{product.units}}</td>  
-    <td>
-      <span class="btn btn-primary" [routerLink]="['/update',product._id]"> 
-        <i class="fa fa-spinner"></i>
-        Edit
-      </span> 
-      &nbsp; 
-      <span class="btn btn-primary" (click)="deleteproduct(product._id)">
-        <i class="fa fa-trash"></i>
-        Delete
-      </span>
-    </td>      
-  </tr>
--->
+<!-- /Group & Channel List -->

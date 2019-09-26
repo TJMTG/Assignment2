@@ -7,7 +7,12 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  public isCollapsed = false;
+  profileFormName: string = "Bob";
+
+  profile = {
+    name:"Bob",
+    role:"superAdmin"
+  };
 
   groups = [
     {
@@ -31,7 +36,7 @@ export class ProfileComponent implements OnInit {
         {name:"channelC"}
       ]
     }
-  ]
+  ];
 
   constructor(private tag: ElementRef) {}
 
@@ -46,7 +51,6 @@ export class ProfileComponent implements OnInit {
     console.log();
     let tempIconTag = this.tag.nativeElement.querySelector("#icon_" + groupName);
     let tempListTag = this.tag.nativeElement.querySelector("#list_" + groupName);
-    //console.log("tempIconTag: ", tempIconTag.attributes['ng-reflect-icon'].value);
     let i;
     let result = false;
     for(i=0; i < tempListTag.classList.length; i++){
@@ -60,14 +64,10 @@ export class ProfileComponent implements OnInit {
       tempListTag.classList.remove("collapse");
       tempIconTag.classList.remove("fa-angle-right");
       tempIconTag.classList.add("fa-angle-down");
-      //tempIconTag.attributes.icon.value = "angle-right";
-      //tempIconTag.attributes['ng-reflect-icon'].value = "angle-right";
     } else {
       tempListTag.classList.add("collapse");
       tempIconTag.classList.remove("fa-angle-down");
       tempIconTag.classList.add("fa-angle-right");
-      //tempIconTag.attributes.icon.value = "angle-down";
-      //tempIconTag.attributes['ng-reflect-icon'].value = "angle-down";
     }
   }
 

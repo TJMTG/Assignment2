@@ -1,6 +1,15 @@
 
-ul {
+ul{
     list-style: none;
+}
+
+.card{
+    margin-bottom: 2.25em;
+}
+
+#uploadButton{
+    min-width: 170px;
+    max-width: 170px;
 }
 
 .just-padding {
