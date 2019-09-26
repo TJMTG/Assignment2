@@ -1,3 +1,8 @@
+
+ul {
+    list-style: none;
+}
+
 .just-padding {
     padding: 15px;
 }

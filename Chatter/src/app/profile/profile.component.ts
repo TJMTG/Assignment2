@@ -44,20 +44,30 @@ export class ProfileComponent implements OnInit {
     console.log("|     value inputed for groupName->", groupName);
     console.log("+-------------------------------------------/");
     console.log();
-    let temp = this.tag.nativeElement.querySelector("#" + groupName);
+    let tempIconTag = this.tag.nativeElement.querySelector("#icon_" + groupName);
+    let tempListTag = this.tag.nativeElement.querySelector("#list_" + groupName);
+    //console.log("tempIconTag: ", tempIconTag.attributes['ng-reflect-icon'].value);
     let i;
     let result = false;
-    for(i=0; i < temp.classList.length; i++){
-      let x = temp.classList[i]
+    for(i=0; i < tempListTag.classList.length; i++){
+      let x = tempListTag.classList[i]
       if(x == "collapse"){
         result = true;
         break
       }
     }
     if(result){
-      temp.classList.remove("collapse");
+      tempListTag.classList.remove("collapse");
+      tempIconTag.classList.remove("fa-angle-right");
+      tempIconTag.classList.add("fa-angle-down");
+      //tempIconTag.attributes.icon.value = "angle-right";
+      //tempIconTag.attributes['ng-reflect-icon'].value = "angle-right";
     } else {
-      temp.classList.add("collapse");
+      tempListTag.classList.add("collapse");
+      tempIconTag.classList.remove("fa-angle-down");
+      tempIconTag.classList.add("fa-angle-right");
+      //tempIconTag.attributes.icon.value = "angle-down";
+      //tempIconTag.attributes['ng-reflect-icon'].value = "angle-down";
     }
   }
 

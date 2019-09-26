@@ -6,24 +6,23 @@
         <!--groups-->
         <div *ngFor="let group of groups">
           <a class="list-group-item" (click)="toggleCollapse(group.name)">
-              <!--<i class="material-icons">
-                  keyboard_arrow_down
-                  </i>-->
-                  <mdb-icon fas icon="angle-down"></mdb-icon>
+            <!--<mdb-icon fas icon="angle-right" id="icon_{{group.name}}"></mdb-icon>-->
+            <!--<i class="fa-angle-down fas" ng-reflect-klass="fa-angle-right " ng-reflect-ng-class="[object Object]">-->
+            <i class="fa-angle-right fas" id="icon_{{group.name}}"></i>
             {{group.name}}
           </a>
           <!--channels-->
-          <div class="list-group collapse" id="{{group.name}}">
+          <div class="list-group collapse" id="list_{{group.name}}">
             <div *ngIf="group.channels.length == 0">
-              <a class="list-group-item">
-                <i class="glyphicon glyphicon-chevron-right"></i>This group has no channels.
-              </a>
+              <a class="list-group-item">This group has no channels.</a>
             </div>
-            <div *ngFor="let channel of group.channels">
-              <a class="list-group-item">
-                <i class="glyphicon glyphicon-chevron-right"></i>{{channel.name}}
-              </a>
-            </div>
+            <ul>
+              <div *ngFor="let channel of group.channels">
+                <li>
+                    <a class="list-group-item">{{channel.name}}</a>
+                </li>
+              </div>
+            </ul>
           </div>
           <!--/channels-->
         </div>
