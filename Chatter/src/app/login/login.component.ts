@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  loginFormUsername = '';
-  loginFormPassword = '';
+  loginFormUsername = "";
+  loginFormPassword = "";
 
   constructor() { }
 

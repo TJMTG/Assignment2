@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ControlsComponent implements OnInit {
 
+  userRole = "superAdmin";
+
   constructor() { }
 
   ngOnInit() {

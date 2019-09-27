@@ -1,1 +1,124 @@
-<p>controls works!</p>
+
+<div class="card" id="groupList">
+  <div class="card-body">
+    <h4 class="card-title text-center mb-4 mt-1">{{userRole}}</h4>
+    <div class="just-padding">
+      <div class="list-group list-group-root well">
+        <!-- superAdmin -->
+        <div *ngIf="userRole == 'superAdmin'">
+          <a class="list-group-item">See all users, groups and channels.</a>
+          <a class="list-group-item">Create users, groups and channels.</a>
+          <a class="list-group-item">Delete users, groups and channels.</a>
+          <a class="list-group-item">Add users to groups and channels.</a>
+          <a class="list-group-item">Remove users from groups and channels.</a>
+          <a class="list-group-item">Change the role of any user to any user.</a>
+        </div>
+        <!-- /superAdmin -->
+        <!-- groupAdmin -->
+        <div *ngIf="userRole == 'groupAdmin'">
+          <a class="list-group-item">See all users, groups and channels.</a>
+          <a class="list-group-item">Create users, groups and channels.</a>
+          <a class="list-group-item">Delete groups and channels.</a>
+          <a class="list-group-item">Add users to groups and channels.</a>
+          <a class="list-group-item">Remove users from groups and channels.</a>
+          <a class="list-group-item">Promote a user from 'regularUser' to 'groupAssistant'.</a>
+        </div>
+        <!-- /groupAdmin -->
+        <!-- groupAssistant -->
+        <div *ngIf="userRole == 'groupAssistant'">
+          <a class="list-group-item">With groups user is a group assistant of:</a>
+          <a class="list-group-item">Add or remove users from channels.</a>
+          <a class="list-group-item">Create a channel.</a>
+        </div>
+        <!-- /groupAssistant -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="just-padding">
+
+    <div class="list-group list-group-root well">
+      
+      <a href="#" class="list-group-item">Item 1</a>
+      <div class="list-group">
+        
+        <a href="#" class="list-group-item">Item 1.1</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Item 1.1.1</a>
+          <a href="#" class="list-group-item">Item 1.1.2</a>
+          <a href="#" class="list-group-item">Item 1.1.3</a>
+        </div>
+        
+        <a href="#" class="list-group-item">Item 1.2</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Item 1.2.1</a>
+          <a href="#" class="list-group-item">Item 1.2.2</a>
+          <a href="#" class="list-group-item">Item 1.2.3</a>
+        </div>
+        
+        <a href="#" class="list-group-item">Item 1.3</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Item 1.3.1</a>
+          <a href="#" class="list-group-item">Item 1.3.2</a>
+          <a href="#" class="list-group-item">Item 1.3.3</a>
+        </div>
+        
+      </div>
+      
+      <a href="#" class="list-group-item">Item 2</a>
+      <div class="list-group">
+        
+        <a href="#" class="list-group-item">Item 2.1</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Item 2.1.1</a>
+          <a href="#" class="list-group-item">Item 2.1.2</a>
+          <a href="#" class="list-group-item">Item 2.1.3</a>
+        </div>
+        
+        <a href="#" class="list-group-item">Item 2.2</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Item 2.2.1</a>
+          <a href="#" class="list-group-item">Item 2.2.2</a>
+          <a href="#" class="list-group-item">Item 2.2.3</a>
+        </div>
+        
+        <a href="#" class="list-group-item">Item 2.3</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Item 2.3.1</a>
+          <a href="#" class="list-group-item">Item 2.3.2</a>
+          <a href="#" class="list-group-item">Item 2.3.3</a>
+        </div>
+        
+      </div>
+      
+      
+      <a href="#" class="list-group-item">Item 3</a>
+      <div class="list-group">
+        
+        <a href="#" class="list-group-item">Item 3.1</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Item 3.1.1</a>
+          <a href="#" class="list-group-item">Item 3.1.2</a>
+          <a href="#" class="list-group-item">Item 3.1.3</a>
+        </div>
+        
+        <a href="#" class="list-group-item">Item 3.2</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Item 3.2.1</a>
+          <a href="#" class="list-group-item">Item 3.2.2</a>
+          <a href="#" class="list-group-item">Item 3.2.3</a>
+        </div>
+        
+        <a href="#" class="list-group-item">Item 3.3</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Item 3.3.1</a>
+          <a href="#" class="list-group-item">Item 3.3.2</a>
+          <a href="#" class="list-group-item">Item 3.3.3</a>
+        </div>
+        
+      </div>
+      
+    </div>
+      
+    </div>
