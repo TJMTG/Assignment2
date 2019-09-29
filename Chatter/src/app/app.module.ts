@@ -13,6 +13,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { UserCreateComponent } from './user-create/user-create.component';
+import { UserUpdateComponent } from './user-update/user-update.component';
+import { GroupCreateComponent } from './group-create/group-create.component';
+import { GroupUpdateComponent } from './group-update/group-update.component';
+import { ChannelCreateComponent } from './channel-create/channel-create.component';
+import { ChannelUpdateComponent } from './channel-update/channel-update.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,13 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     LoginComponent,
     ControlsComponent,
     ProfileComponent,
-    ChatComponent
+    ChatComponent,
+    UserCreateComponent,
+    UserUpdateComponent,
+    GroupCreateComponent,
+    GroupUpdateComponent,
+    ChannelCreateComponent,
+    ChannelUpdateComponent
   ],
   imports: [
     BrowserModule,

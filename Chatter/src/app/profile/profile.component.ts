@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -38,9 +39,12 @@ export class ProfileComponent implements OnInit {
     }
   ];
 
-  constructor(private tag: ElementRef) {}
+  constructor(private router: Router, private tag: ElementRef) {}
 
-  ngOnInit() {
+  ngOnInit(){
+    if(sessionStorage.getItem("username") == null){
+      this.router.navigateByUrl("/login");
+    }
   }
 
   toggleCollapse(groupName){

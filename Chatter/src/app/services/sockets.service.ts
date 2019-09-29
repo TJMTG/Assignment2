@@ -3,29 +3,43 @@ import { Observable } from 'rxjs';
 import * as socketIo from 'socket.io-client';
 import { Message } from '../classes/message/message';
 
-const SERVER_URL = 'http://localhost:3000';
+const serverUrl = 'http://localhost:3000';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SocketsService {
+
   private socket;
-  constructor() { }
-  initSocket(){
-    this.socket = socketIo(SERVER_URL);
+
+  constructor(){}
+
+  initSocket(): void{
+    this.socket = socketIo(serverUrl);
   }
 
-  updatelist() {
-    this.socket.emit('updatelist','list please');
+  //
+  // User list
+  //
+  updateUserList() {
+    this.socket.emit('updateUserList', 'list please');
   }
 
-  onNewlist(){
+  onNewUserlist(){
       let observable = new Observable(observer=>{
-        this.socket.on('newlist', (data) => observer.next(data));
+        this.socket.on('newUserList', (data) => observer.next(data));
     });
     return observable;
   }
+
+  //
+  // Group List
+  //
+
+
+
+
 
   onMessage(){
     let observable = new Observable(observer=>{

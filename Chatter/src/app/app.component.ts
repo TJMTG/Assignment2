@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +10,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Chatter';
 
-  // for *ngIf logged in or logged out functionality
-  isLoggedIn: boolean;
+  constructor(private loginService: LoginService){}
+
   ngOnInit(){
-   this.isLoggedIn = this.keyHasValue('Username');
   }
-  keyHasValue(key: string): boolean {
-    if (localStorage.getItem(key) == ""){
-      return false
-    } else {
-      return true
-    }
+
+  logoutClicked(){
+    sessionStorage.clear();
+    this.loginService.isLoggedIn = false;
   }
-  //
 
 }

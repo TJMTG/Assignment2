@@ -1,12 +1,12 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand">Chatter</a>    
-  <div *ngIf="isLoggedIn; else loggedOut">
+  <div *ngIf="!loginService.isLoggedIn">
     <a class="nav-link" routerLink="/login">Login</a>
   </div>
-  <ng-template #loggedOut>
-    <a class="nav-link" routerLink="/login">Logout</a>
-  </ng-template><!--(click)="logout()"-->
+  <div *ngIf="loginService.isLoggedIn">
+    <a class="nav-link" routerLink="/login" (click)="logoutClicked()">Logout</a>
+  </div>
   <a class="nav-link" routerLink="/profile">Profile</a>
   <a class="nav-link" routerLink="/controls">Controls</a>
   <a class="nav-link" routerLink="/chat">Chat</a> 

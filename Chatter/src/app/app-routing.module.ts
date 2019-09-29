@@ -5,7 +5,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ControlsComponent } from './controls/controls.component';
+
+import { UserCreateComponent } from './userCreate/userCreate.component';
+import { UserUpdateComponent } from './userUpdate/userUpdate.component';
+
+import { GroupCreateComponent } from './groupCreate/groupCreate.component';
+import { GroupUpdateComponent } from './groupUpdate/groupUpdate.component';
+
+import { ChannelCreateComponent } from './channelCreate/channelCreate.component';
+import { ChannelUpdateComponent } from './channelUpdate/channelUpdate.component';
+
 import { ChatComponent } from './chat/chat.component';
+
 //
 
 const routes: Routes = [
@@ -13,6 +24,12 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'controls', component: ControlsComponent},
+  {path: 'userCreate', component: UserCreateComponent},
+  {path: 'userUpdate', component: UserUpdateComponent},
+  {path: 'groupCreate', component: GroupCreateComponent},
+  {path: 'groupUpdate', component: GroupUpdateComponent},
+  {path: 'channelCreate', component: ChannelCreateComponent},
+  {path: 'channelUpdate', component: ChannelUpdateComponent},
   {path: 'chat', component: ChatComponent}
 ];
 
