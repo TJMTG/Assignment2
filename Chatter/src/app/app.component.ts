@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
@@ -10,14 +10,16 @@ import { LoginService } from 'src/app/services/login/login.service';
 export class AppComponent {
   title = 'Chatter';
 
-  constructor(private loginService: LoginService){}
+  constructor(private loginService: LoginService, private tag: ElementRef){}
 
   ngOnInit(){
   }
 
   logoutClicked(){
+    console.log("Logout Clicked.");
     sessionStorage.clear();
     this.loginService.isLoggedIn = false;
+    console.log("Logged out.");
   }
 
 }

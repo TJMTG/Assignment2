@@ -3,13 +3,6 @@
     margin-bottom: 2.25em;
 }
 
-#userSuccessFeedback{
-    display: none;
-}
-
-#userFailFeedback{
-    display: none;
-}
 
 #groupSuccessFeedback{
     display: none;

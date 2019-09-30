@@ -1,8 +1,8 @@
 
 export class User {
     mongoID?:string;
-    username:string;
-    password:string;
+    username?:string;
+    password?:string;
     picture?:string;
     role?:string;
     groupsIn?:Array<string>;

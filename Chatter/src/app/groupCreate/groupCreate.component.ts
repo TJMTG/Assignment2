@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-group-create',
-  templateUrl: './group-create.component.html',
-  styleUrls: ['./group-create.component.scss']
+  templateUrl: './groupCreate.component.html',
+  styleUrls: ['./groupCreate.component.scss']
 })
 export class GroupCreateComponent implements OnInit {
 

@@ -25,11 +25,11 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'controls', component: ControlsComponent},
   {path: 'userCreate', component: UserCreateComponent},
-  {path: 'userUpdate', component: UserUpdateComponent},
+  {path: 'userUpdate/:username', component: UserUpdateComponent},
   {path: 'groupCreate', component: GroupCreateComponent},
-  {path: 'groupUpdate', component: GroupUpdateComponent},
+  {path: 'groupUpdate/:name', component: GroupUpdateComponent},
   {path: 'channelCreate', component: ChannelCreateComponent},
-  {path: 'channelUpdate', component: ChannelUpdateComponent},
+  {path: 'channelUpdate/:name', component: ChannelUpdateComponent},
   {path: 'chat', component: ChatComponent}
 ];
 

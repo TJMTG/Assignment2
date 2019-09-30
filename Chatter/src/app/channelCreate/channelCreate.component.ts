@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-channel-create',
-  templateUrl: './channel-create.component.html',
-  styleUrls: ['./channel-create.component.scss']
+  templateUrl: './channelCreate.component.html',
+  styleUrls: ['./channelCreate.component.scss']
 })
 export class ChannelCreateComponent implements OnInit {
 

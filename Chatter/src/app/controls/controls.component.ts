@@ -26,14 +26,6 @@ export class ControlsComponent implements OnInit {
   groupList:any;
 
   //
-  // Create user form
-  //
-  userFormUsername = "";
-  userFormPassword = "";
-  userFormRole = "";
-  userSuccessMessage = "";
-  userFailMessages:Array<string>;
-  //
   // Create group form
   //
   groupFormName = "";
@@ -64,48 +56,21 @@ export class ControlsComponent implements OnInit {
     });
   }
 
-  createUserClicked(){
-    let tempOne = this.tag.nativeElement.querySelector("#userSuccessFeedback");
-    tempOne.style.display = "none";
-    let tempTwo = this.tag.nativeElement.querySelector("#userFailFeedback");
-    tempTwo.style.display = "none";
-    this.userSuccessMessage = "";
-    this.userFailMessages = [];
-    let error = false;
-    let feedback = [];
-    if(this.userFormUsername == ""){
-      error = true;
-      feedback.push("Create User: username field is empty.");
+  deleteUserClicked(username){
+    if (confirm("Are you sure you want to delete the user '" + username + "'?")){
+      this.UserDataService.delete(username).subscribe((data)=>{
+        if(data.ok == true){
+          this.SocketsService.updateUserList();
+        }
+      });
     }
-    if(this.userFormPassword == ""){
-      error = true;
-      feedback.push("Create User: password field is empty.");
-    }
-    if(this.userFormRole == ""){
-      error = true;
-      feedback.push("Create User: role field is empty.");
-    }
-    if(error){
-      this.userFailMessages = feedback;
-      tempTwo.style.display = "block";
-    } else {
-      let user = {
-        "username": this.userFormUsername,
-        "password": this.userFormPassword,
-        "role": this.userFormRole
-      }
-      this.UserDataService.create(user).subscribe((data)=>{
-        if(data.ok){
-          this.userSuccessMessage = user.username;
-          tempOne.style.display = "block";
-          this.userFormUsername = "";
-          this.userFormPassword = "";
-          this.userFormRole = "";
-        } else {
-          console.log(data);
-          this.userFailMessages.push(data.message);
-          tempTwo.style.display = "block";
+  }
 
+  deleteGroupClicked(name){
+    if (confirm("Are you sure you want to delete the group '" + name + "'?")){
+      this.GroupDataService.delete(name).subscribe((data)=>{
+        if(data.ok == true){// change to true
+          this.SocketsService.updateGroupList();
         }
       });
     }

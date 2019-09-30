@@ -31,8 +31,8 @@ export class UserDataService {
     return this.http.post<any>('http://localhost:3000/user/update', user);
   }
 
-  delete(userID){
-    return this.http.post<any>('http://localhost:3000/user/delete', {'userID':userID});
+  delete(username){
+    return this.http.post<any>('http://localhost:3000/user/delete', {"username":username});
   }
 
 

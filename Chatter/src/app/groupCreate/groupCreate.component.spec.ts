@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroupCreateComponent } from './group-create.component';
+import { GroupCreateComponent } from './groupCreate.component';
 
 describe('GroupCreateComponent', () => {
   let component: GroupCreateComponent;

@@ -25,7 +25,7 @@ export class GroupDataService {
     return this.http.post<any>('http://localhost:3000/group/update', group);
   }
 
-  delete(mongoID){
-    return this.http.post<any>('http://localhost:3000/group/delete', {'userID':mongoID});
+  delete(name){
+    return this.http.post<any>('http://localhost:3000/group/delete', {'userID':name});
   }
 }

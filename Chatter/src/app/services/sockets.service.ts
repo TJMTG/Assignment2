@@ -36,7 +36,16 @@ export class SocketsService {
   //
   // Group List
   //
+  updateGroupList() {
+    this.socket.emit('updateGroupList', 'list please');
+  }
 
+  onNewGrouplist(){
+      let observable = new Observable(observer=>{
+        this.socket.on('newGroupList', (data) => observer.next(data));
+    });
+    return observable;
+  }
 
 
 

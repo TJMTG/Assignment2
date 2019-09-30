@@ -1,14 +1,14 @@
 
 <!-- Profile Info -->
 <div class="card">
-  <img class="card-img-top" alt="Your profile picture.">
+  <img src="" class="card-img-top" id="profilePicture">
+  <h1 id="profileTitle">Your Profile</h1>
   <div class="card-body">
-    <h5 class="card-title">Your Profile</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{profile.name}}</h6>
-    <p class="card-text">You are a '{{profile.role}}'.</p>
-    <form>
-        <button type="submit" class="btn btn-primary btn-block" (click)="uploadClicked()" id="uploadButton">Upload Profile Pic</button>
+    <form id="profilePicForm">
+      <button type="submit" class="btn btn-primary btn-block" (click)="uploadClicked()" id="uploadButton">Upload Profile Pic</button>
     </form>
+    <h5 class="card-title">{{user.username}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{user.role}}</h6>
   </div>
 </div>
 <!-- /Profile Info -->
@@ -17,6 +17,7 @@
 <div class="card" id="groupList">
   <div class="card-body">
     <h4 class="card-title text-center mb-4 mt-1">Your Groups</h4>
+    <h6 class="card-subtitle mb-2 text-muted text-center" id="groupSubtitle">& Channels</h6>
     <div class="just-padding">
       <div class="list-group list-group-root well">
         <!--groups-->
@@ -27,10 +28,10 @@
           <!--channels-->
           <div class="list-group collapse" id="list_{{group.name}}">
             <div *ngIf="group.channels.length == 0">
-              <a class="list-group-item">You are not in any channels in this group.</a>
+              <a class="list-group-item channelItem text-secondary">You are not in any channels in this group.</a>
             </div>
               <div *ngFor="let channel of group.channels">
-                <a class="list-group-item">{{channel.name}}</a>
+                <a class="list-group-item channelItem text-secondary">{{channel.name}}</a>
               </div>
           </div>
           <!--/channels-->

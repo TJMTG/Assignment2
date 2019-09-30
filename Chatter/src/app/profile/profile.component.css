@@ -3,13 +3,30 @@ ul{
     list-style: none;
 }
 
-.card{
+#profileTitle {
+    color: white;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card {
     margin-bottom: 2.25em;
 }
 
-#uploadButton{
+#uploadButton {
     min-width: 170px;
     max-width: 170px;
+}
+
+#profilePicture {
+    background-color: gray;
+    min-height: 200px;
+}
+
+#profilePicForm {
+    float: right;
 }
 
 .just-padding {
@@ -44,4 +61,20 @@ ul{
 
 .list-group-item .glyphicon {
     margin-right: 5px;
+}
+
+.fa-angle-right {
+    margin-right: 10px;
+}
+
+.fa-angle-down {
+    margin-right: 10px;
+}
+
+.channelItem {
+    padding-left: 50px;
+}
+
+#groupSubtitle {
+    margin-top: -20px;
 }

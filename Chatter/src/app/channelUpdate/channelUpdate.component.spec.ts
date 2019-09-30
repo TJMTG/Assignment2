@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChannelUpdateComponent } from './channel-update.component';
+import { ChannelUpdateComponent } from './channelUpdate.component';
 
 describe('ChannelUpdateComponent', () => {
   let component: ChannelUpdateComponent;

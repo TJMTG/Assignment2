@@ -8,11 +8,9 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  profileFormName: string = "Bob";
-
-  profile = {
-    name:"Bob",
-    role:"superAdmin"
+  user = {
+    username:JSON.parse(sessionStorage.getItem("username")),
+    role:JSON.parse(sessionStorage.getItem("role"))
   };
 
   groups = [
@@ -48,11 +46,6 @@ export class ProfileComponent implements OnInit {
   }
 
   toggleCollapse(groupName){
-    console.log("+-------------------------------------------\\");
-    console.log("| A group div was clicked.");
-    console.log("|     value inputed for groupName->", groupName);
-    console.log("+-------------------------------------------/");
-    console.log();
     let tempIconTag = this.tag.nativeElement.querySelector("#icon_" + groupName);
     let tempListTag = this.tag.nativeElement.querySelector("#list_" + groupName);
     let i;

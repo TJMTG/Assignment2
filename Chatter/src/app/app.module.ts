@@ -7,32 +7,35 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ControlsComponent } from './controls/controls.component';
 import { ProfileComponent } from './profile/profile.component';
+
+import { UserCreateComponent } from './userCreate/userCreate.component';
+import { UserUpdateComponent } from './userUpdate/userUpdate.component'
+import { GroupCreateComponent } from './groupCreate/groupCreate.component';
+import { GroupUpdateComponent } from './groupUpdate/groupUpdate.component';
+import { ChannelCreateComponent } from './channelCreate/channelCreate.component';
+import { ChannelUpdateComponent } from './channelUpdate/channelUpdate.component';
+
 import { ChatComponent } from './chat/chat.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { UserCreateComponent } from './user-create/user-create.component';
-import { UserUpdateComponent } from './user-update/user-update.component';
-import { GroupCreateComponent } from './group-create/group-create.component';
-import { GroupUpdateComponent } from './group-update/group-update.component';
-import { ChannelCreateComponent } from './channel-create/channel-create.component';
-import { ChannelUpdateComponent } from './channel-update/channel-update.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ControlsComponent,
-    ProfileComponent,
-    ChatComponent,
     UserCreateComponent,
     UserUpdateComponent,
     GroupCreateComponent,
     GroupUpdateComponent,
     ChannelCreateComponent,
-    ChannelUpdateComponent
+    ChannelUpdateComponent,
+    ProfileComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroupUpdateComponent } from './group-update.component';
+import { GroupUpdateComponent } from './groupUpdate.component';
 
 describe('GroupUpdateComponent', () => {
   let component: GroupUpdateComponent;

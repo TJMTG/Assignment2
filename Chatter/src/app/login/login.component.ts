@@ -31,18 +31,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(){}
 
-  public loginClicked(){
-
+  public async loginClicked(){
+    console.log("Login Clicked.");
     sessionStorage.clear();
 
     this.user.username = this.loginFormUsername;
     this.user.password = this.loginFormPassword;
 
-    let tempOne = this.tag.nativeElement.querySelector("#loggedOutMessage");
-    tempOne.style.display = "none";
+    let loginFail = this.tag.nativeElement.querySelector("#logginFailMessage");
+    loginFail.style.display = "none";
 
-    let tempTwo = this.tag.nativeElement.querySelector("#loggedInFailMessage");
-    tempTwo.style.display = "none";
+    let feedbackBar = this.tag.nativeElement.querySelector("#feedbackBar");
 
     this.HttpClient.post(backendURL + "/user/login", this.user, HttpOptions).subscribe(
       (data:any)=>{
@@ -50,15 +49,18 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("username", JSON.stringify(this.user.username));
           sessionStorage.setItem("role", JSON.stringify(data.role));
           this.loginService.isLoggedIn = true;
+          console.log("Logged In.");
           this.router.navigateByUrl("/profile");
         } else {
-          tempOne.style.display = "block";
+          loginFail.style.display = "block";
+          feedbackBar.style.display = "block";
         }
       }
     )
   }
 
   logoutClicked(){
+    console.log("Logout Clicked.");
     sessionStorage.clear();
     this.loginService.isLoggedIn = false;
     console.log("Logged out.");

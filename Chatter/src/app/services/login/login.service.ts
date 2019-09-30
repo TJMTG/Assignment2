@@ -10,10 +10,8 @@ export class LoginService {
 
   constructor(private http: HttpClient){
     if(sessionStorage.getItem("username") == null){
-      console.log("false");
       this.isLoggedIn = false;
     } else {
-      console.log("true");
       this.isLoggedIn = true;
     }
   }

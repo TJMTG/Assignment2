@@ -1,14 +1,14 @@
 
-#loginCard{
+.box{
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
 
-#loggedOutMessage{
+#feedbackBar{
     display: none;
 }
 
-#loggedInFailMessage{
+#logginFailMessage{
     display: none;
 }
