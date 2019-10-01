@@ -1,43 +1,6 @@
 
-<div class="card" id="roleList">
-  <div class="card-body">
-    <h4 class="card-title text-center mb-4 mt-1">{{userRole}}</h4>
-    <div class="just-padding">
-      <div class="list-group list-group-root well">
-        <!-- superAdmin -->
-        <div *ngIf="userRole == 'superAdmin'">
-          <a class="list-group-item">See all users, groups and channels.</a>
-          <a class="list-group-item">Create users, groups and channels.</a>
-          <a class="list-group-item">Delete users, groups and channels.</a>
-          <a class="list-group-item">Add users to groups and channels.</a>
-          <a class="list-group-item">Remove users from groups and channels.</a>
-          <a class="list-group-item">Change the role of any user to any user.</a>
-        </div>
-        <!-- /superAdmin -->
-        <!-- groupAdmin -->
-        <div *ngIf="userRole == 'groupAdmin'">
-          <a class="list-group-item">See all users, groups and channels.</a>
-          <a class="list-group-item">Create users, groups and channels.</a>
-          <a class="list-group-item">Delete groups and channels.</a>
-          <a class="list-group-item">Add users to groups and channels.</a>
-          <a class="list-group-item">Remove users from groups and channels.</a>
-          <a class="list-group-item">Promote a user from 'regularUser' to 'groupAssistant'.</a>
-        </div>
-        <!-- /groupAdmin -->
-        <!-- groupAssistant -->
-        <div *ngIf="userRole == 'groupAssistant'">
-          <a class="list-group-item">With groups user is a group assistant of:</a>
-          <a class="list-group-item">Add or remove users from channels.</a>
-          <a class="list-group-item">Create a channel.</a>
-        </div>
-        <!-- /groupAssistant -->
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- List Users (retrieve, update and delete) -->
-<div class="card" id="roleList">
+<div class="card box" id="userList" *ngIf="userRole == 'superAdmin' || userRole == 'groupAdmin'">
   <div class="card-body">
     <h4 class="card-title text-center mb-4 mt-1">Users</h4>
       <table class="table">
@@ -58,45 +21,50 @@
           </td>
         </tr>
         <!-- In the event of 'no users' -->
-        <tr *ngIf="'userList.length' == '0'">
+        <tr *ngIf="userList.length == 0">
           <td colspan="4" style="text-align: center;">
             There are no users in the database.
           </td>
         </tr>
     </table>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-block" [routerLink]="['/userCreate']">Create User</button>
+      <button type="submit" class="btn btn-primary btn-block" [routerLink]="['/userCreate']">Create New User</button>
     </div>
   </div>
 </div>
 
-
 <!-- List Groups (retrieve, update and delete) -->
-
-<!-- Create Group -->
-<div *ngIf="userRole == 'superAdmin' || userRole == 'groupAdmin'" class="card">
+<div class="card box" id="groupList" *ngIf="userRole == 'superAdmin' || userRole == 'groupAdmin'">
   <div class="card-body">
-    <h4 class="card-title text-center mb-4 mt-1">Create Group</h4>
-    <hr>
-    <a class="list-group-item text-success text-center" id="groupSuccessFeedback">
-      User '{{userSuccessMessage}}' successfully created.
-    </a>
-    <a class="list-group-item text-danger text-center" id="groupFailFeedback">
-      {{failMessage}}
-    </a>
-    <form>
-      <div class="form-group">
-        <div class="input-group">
-          <input
-            class="form-control" type="text" placeholder="Name"
-            id="groupFormName" [(ngModel)]="groupFormName" name="groupFormName"
-          >
-        </div>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" (click)="createGroupClicked()">Create</button>
-      </div>
-    </form>
+    <h4 class="card-title text-center mb-4 mt-1">Groups</h4>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Users</th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr style="padding-top:20px;" *ngFor="let group of groupList"> 
+          <td>{{group.name}}</td> 
+          <td>{{group.totalUsers}}</td>  
+          <td>
+            <button class="btn btn-primary" [routerLink]="['/groupUpdate', group.name]">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteGroupClicked(group.name)">Delete</button>
+          </td>
+        </tr>
+        <!-- In the event of 'no groups' -->
+        <tr *ngIf="groupList.length == 0">
+          <td colspan="4" style="text-align: center;">
+            There are no groups in the database.
+          </td>
+        </tr>
+    </table>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-block" [routerLink]="['/groupCreate']">Create New Group</button>
+    </div>
   </div>
 </div>
+<!-- /List Groups (retrieve, update and delete) -->
 

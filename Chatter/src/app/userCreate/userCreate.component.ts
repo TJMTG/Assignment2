@@ -45,25 +45,28 @@ export class UserCreateComponent implements OnInit {
     tempOne.style.display = "none";
     let tempTwo = this.tag.nativeElement.querySelector("#userFailFeedback");
     tempTwo.style.display = "none";
+    let feedbackBar = this.tag.nativeElement.querySelector("#feedbackBar");
+    feedbackBar.style.display = "block";
     this.userSuccessMessage = "";
     this.userFailMessages = [];
     let error = false;
     let feedback = [];
     if(this.userFormUsername == ""){
       error = true;
-      feedback.push("Create User: username field is empty.");
+      feedback.push("Create User: 'username' field is empty.");
     }
     if(this.userFormPassword == ""){
       error = true;
-      feedback.push("Create User: password field is empty.");
+      feedback.push("Create User: 'password' field is empty.");
     }
     if(this.userFormRole == ""){
       error = true;
-      feedback.push("Create User: role field is empty.");
+      feedback.push("Create User: 'role' field is empty.");
     }
     if(error){
       this.userFailMessages = feedback;
       tempTwo.style.display = "block";
+      feedbackBar.style.display = "block";
     } else {
       let user = {
         "username": this.userFormUsername,

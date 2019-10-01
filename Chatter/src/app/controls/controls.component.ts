@@ -22,19 +22,12 @@ export class ControlsComponent implements OnInit {
 
   userRole = JSON.parse(sessionStorage.getItem("role"));
 
-  userList:any;
-  groupList:any;
-
-  //
-  // Create group form
-  //
-  groupFormName = "";
-  groupSuccessMessage = "";
-  groupFailMessages:Array<string>;
+  userList:any = [];
+  groupList:any = [];
 
   constructor(
-    private router: Router,  
-    private HttpClient: HttpClient, 
+    private router: Router,
+    private HttpClient: HttpClient,
     private tag: ElementRef,
     private SocketsService: SocketsService,
     private UserDataService: UserDataService,
@@ -51,16 +44,23 @@ export class ControlsComponent implements OnInit {
     }
     this.SocketsService.initSocket();
     this.SocketsService.updateUserList();
-    this.SocketsService.onNewUserlist().subscribe((data)=>{
+    this.SocketsService.onNewUserList().subscribe((data)=>{
       this.userList = data;
+    });
+    this.SocketsService.updateGroupList();
+    this.SocketsService.onNewGroupList().subscribe((data)=>{
+      this.groupList = data;
     });
   }
 
-  deleteUserClicked(username){
-    if (confirm("Are you sure you want to delete the user '" + username + "'?")){
-      this.UserDataService.delete(username).subscribe((data)=>{
+  deleteUserClicked(value){
+    if (confirm("Are you sure you want to delete the user '" + value + "'?")){
+      this.UserDataService.delete(value).subscribe((data)=>{
         if(data.ok == true){
+          console.log("true was received.");
           this.SocketsService.updateUserList();
+        } else {
+          console.log("Failed to delete user.");
         }
       });
     }
@@ -75,40 +75,5 @@ export class ControlsComponent implements OnInit {
       });
     }
   }
-
-  createGroupClicked(){
-    let tempOne = this.tag.nativeElement.querySelector("#groupSuccessFeedback");
-    tempOne.style.display = "none";
-    let tempTwo = this.tag.nativeElement.querySelector("#groupFailFeedback");
-    tempTwo.style.display = "none";
-    this.groupSuccessMessage = "";
-    this.groupFailMessages = [];
-    let error = false;
-    let feedback = [];
-    if(this.groupFormName == ""){
-      error = true;
-      feedback.push("Create User: username field is empty.");
-    }
-    if(error){
-      this.groupFailMessages = feedback;
-      tempTwo.style.display = "block";
-    } else {
-      let group = {
-        "name": this.groupFormName
-      }
-      this.GroupDataService.create(group).subscribe((data)=>{
-        if(data.ok){
-          this.groupSuccessMessage = group.name;
-          tempOne.style.display = "block";
-          this.groupFormName = "";
-        } else {
-          console.log(data);
-          this.groupFailMessages.push(data.message);
-          tempTwo.style.display = "block";
-        }
-      });
-    }
-  }
-
 
 }

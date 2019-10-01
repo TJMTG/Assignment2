@@ -23,12 +23,13 @@ export class SocketsService {
   // User list
   //
   updateUserList() {
-    this.socket.emit('updateUserList', 'list please');
+    //emit parameters: event type & the message
+    this.socket.emit("updateUserList", "check yourself");
   }
 
-  onNewUserlist(){
+  onNewUserList(){
       let observable = new Observable(observer=>{
-        this.socket.on('newUserList', (data) => observer.next(data));
+        this.socket.on("newUserList", (data) => observer.next(data));
     });
     return observable;
   }
@@ -37,12 +38,12 @@ export class SocketsService {
   // Group List
   //
   updateGroupList() {
-    this.socket.emit('updateGroupList', 'list please');
+    this.socket.emit("updateGroupList", "check yourself");
   }
 
-  onNewGrouplist(){
+  onNewGroupList(){
       let observable = new Observable(observer=>{
-        this.socket.on('newGroupList', (data) => observer.next(data));
+        this.socket.on("newGroupList", (data) => observer.next(data));
     });
     return observable;
   }
@@ -52,7 +53,7 @@ export class SocketsService {
 
   onMessage(){
     let observable = new Observable(observer=>{
-      this.socket.on('message', (data) => observer.next(data));
+      this.socket.on("message", (data) => observer.next(data));
     });
     return observable;
   }
@@ -62,12 +63,12 @@ export class SocketsService {
   }
 
   prodcount(){
-    this.socket.emit("prodcount","count please");
+    this.socket.emit("prodcount","check yourself");
   }
 
   onProdcount(){
     let observable = new Observable(observer=>{
-      this.socket.on('prodcount', (data) => observer.next(data));
+      this.socket.on("prodcount", (data) => observer.next(data));
     });
     return observable;
   }

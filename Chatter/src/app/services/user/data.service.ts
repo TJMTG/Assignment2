@@ -15,24 +15,24 @@ export class UserDataService {
     return this.http.post<any>('http://localhost:3000/user/create', user);
   }
 
-  retrieve(key, value){
-    return this.http.post<any>('http://localhost:3000/user/retrieve/one', {key:value});
+  retrieve(value){
+    return this.http.post<any>('http://localhost:3000/user/retrieve/one', {"username":value});
   }
-
-    retrieveAll(){
-      return this.http.post<any>('http://localhost:3000/user/retrieve/all', {});
-    }
 
     retrieveLogin(user:User){
       return this.http.post<any>('http://localhost:3000/user/retrieve/login', user);
     }
 
-  update(user:User){
-    return this.http.post<any>('http://localhost:3000/user/update', user);
+    retrieveAll(){
+      return this.http.get<any>('http://localhost:3000/user/retrieve/all');
+    }
+
+  update(oldUsername, user:User){
+    return this.http.post<any>('http://localhost:3000/user/update', {"oldUsername":oldUsername, "user":user});
   }
 
-  delete(username){
-    return this.http.post<any>('http://localhost:3000/user/delete', {"username":username});
+  delete(value){
+    return this.http.post<any>('http://localhost:3000/user/delete', {"username":value});
   }
 
 

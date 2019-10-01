@@ -27,7 +27,13 @@ export class LoginComponent implements OnInit {
     password: this.loginFormPassword,
   }
 
-  constructor(private router: Router, private HttpClient: HttpClient, private loginService: LoginService, private tag: ElementRef){}
+  constructor(
+    private router: Router, 
+    private HttpClient: HttpClient, 
+    private loginService: LoginService, 
+    private tag: ElementRef,
+    private UserDataService: UserDataService
+  ){}
 
   ngOnInit(){}
 
@@ -38,25 +44,25 @@ export class LoginComponent implements OnInit {
     this.user.username = this.loginFormUsername;
     this.user.password = this.loginFormPassword;
 
-    let loginFail = this.tag.nativeElement.querySelector("#logginFailMessage");
+    let loginFail = this.tag.nativeElement.querySelector("#failFeedback");
     loginFail.style.display = "none";
 
     let feedbackBar = this.tag.nativeElement.querySelector("#feedbackBar");
-
-    this.HttpClient.post(backendURL + "/user/login", this.user, HttpOptions).subscribe(
-      (data:any)=>{
-        if(data.ok){
-          sessionStorage.setItem("username", JSON.stringify(this.user.username));
-          sessionStorage.setItem("role", JSON.stringify(data.role));
-          this.loginService.isLoggedIn = true;
-          console.log("Logged In.");
-          this.router.navigateByUrl("/profile");
-        } else {
-          loginFail.style.display = "block";
-          feedbackBar.style.display = "block";
-        }
+    feedbackBar.style.display = "none";
+    
+    let newUser = new User(null, this.user.username, this.user.password, null, null, null, null, null);
+    this.UserDataService.retrieveLogin(newUser).subscribe((data)=>{
+      if(data.ok){
+        sessionStorage.setItem("username", JSON.stringify(this.user.username));
+        sessionStorage.setItem("role", JSON.stringify(data.role));
+        this.loginService.isLoggedIn = true;
+        console.log("Logged In.");
+        this.router.navigateByUrl("/profile");
+      } else {
+        loginFail.style.display = "block";
+        feedbackBar.style.display = "block";
       }
-    )
+    });
   }
 
   logoutClicked(){

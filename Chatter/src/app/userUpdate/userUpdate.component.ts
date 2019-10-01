@@ -24,6 +24,11 @@ export class UserUpdateComponent implements OnInit {
   userSuccessMessage = "";
   userFailMessages:Array<string>;
 
+  //
+  // 
+  //
+  oldUsername = "";
+
   constructor(
     private UserDataService: UserDataService,
     private route: ActivatedRoute, 
@@ -34,14 +39,13 @@ export class UserUpdateComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params)=>{
       this.usernameParameter = params.get('username');
-      console.log("The parameter: ", this.usernameParameter);
     });
-    this.UserDataService.retrieve(this.usernameParameter, this.usernameParameter).subscribe((data)=>{
-      console.log("The data: ", data);
+    this.UserDataService.retrieve(this.usernameParameter).subscribe((data)=>{
       if(data.ok){
-        this.userFormUsername = data[0].username;
-        this.userFormPassword = data[0].password;
-        this.userFormRole = data[0].role;
+        this.oldUsername = data.results[0].username;
+        this.userFormUsername = data.results[0].username;
+        this.userFormPassword = data.results[0].password;
+        this.userFormRole = data.results[0].role;
       } else {
         console.log("Failed to retrieve data.");
       }
@@ -73,15 +77,13 @@ export class UserUpdateComponent implements OnInit {
       this.userFailMessages = feedback;
       tempTwo.style.display = "block";
     } else {
-      let user: User = new User(null, this.userFormUsername, this.userFormPassword, this.userFormRole, null, null, null, null);
-      this.UserDataService.update(user).subscribe((data)=>{
-        //this.router.navigate(['/list', data.ok]);
+      let user: User = new User(null, this.userFormUsername, this.userFormPassword, null, this.userFormRole, null, null, null);
+      this.UserDataService.update(this.oldUsername, user).subscribe((data)=>{
         if(data.ok){
-          this.userSuccessMessage = user.username;
-          tempOne.style.display = "block";
-          this.userFormUsername = "";
-          this.userFormPassword = "";
-          this.userFormRole = "";
+          //this.userSuccessMessage = user.username;
+          //tempOne.style.display = "block";
+          //this.usernameParameter = user.username;
+          this.router.navigateByUrl("/controls");
         } else {
           this.userFailMessages.push(data.message);
           tempTwo.style.display = "block";

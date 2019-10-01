@@ -8,6 +8,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 
 export class AppComponent {
+  
   title = 'Chatter';
 
   constructor(private loginService: LoginService, private tag: ElementRef){}

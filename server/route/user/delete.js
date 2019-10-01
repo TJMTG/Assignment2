@@ -14,20 +14,21 @@
     //
 
 module.exports = function(db, app){
-    console.log("+-------------------------------------------\\");
-    console.log("| Inside 'user/delete.js'.");
-    console.log("|     value inputed for ->");
-    console.log("|     value inputed for ->");
-    console.log("+-------------------------------------------/");
-    console.log();
-    app.post("/user/delete",function(req,res){
+    app.post("/user/delete", function(req,res){
+        console.log("/user/delete");
         if(!req.body){
-            console.log();
             return res.sendStatus(400)
         }
-        user = req.body //create new variable to handle inputed information
-        const collection = db.collection("users");
-        //do mongo query
-        //do stuff with results
+        //const groupCollection = await db.collection("group");
+        const userCollection = db.collection("users");
+        let query = {username: req.body.username};
+        //let resultOne = await channelCollection.deleteMany()
+        userCollection.deleteOne(query, (err, results)=>{
+            if(err) throw err;
+            let message = "User '" + req.body.username + "' deleted.";
+            console.log(message);
+            //console.log(message);
+            res.send({"ok":true, "message":message});
+        });
     });
 }

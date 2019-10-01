@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
 
   user = {
-    username:JSON.parse(sessionStorage.getItem("username")),
-    role:JSON.parse(sessionStorage.getItem("role"))
+    username: JSON.parse(sessionStorage.getItem("username")),
+    role: JSON.parse(sessionStorage.getItem("role"))
   };
 
   groups = [

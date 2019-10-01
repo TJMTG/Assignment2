@@ -1,20 +1,68 @@
 
 <!-- Profile Info -->
-<div class="card">
+<div class="card box">
   <img src="" class="card-img-top" id="profilePicture">
   <h1 id="profileTitle">Your Profile</h1>
   <div class="card-body">
     <form id="profilePicForm">
       <button type="submit" class="btn btn-primary btn-block" (click)="uploadClicked()" id="uploadButton">Upload Profile Pic</button>
+      <button type="submit" class="btn btn-primary btn-block" (click)="uploadClicked()" id="editButton">Edit Profile</button>
     </form>
     <h5 class="card-title">{{user.username}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{user.role}}</h6>
+    <p>Generic profile information goes here. But apparently this is interesting enough, becuase there you are, reading this.</p>
   </div>
 </div>
 <!-- /Profile Info -->
 
+<!-- Privileges -->
+<div class="card box" id="roleList">
+  <div class="card-body">
+    <h4 class="card-title text-center mb-4 mt-1">'{{user.role}}' Privileges</h4>
+    <div class="just-padding">
+      <div class="list-group list-group-root well">
+        <!-- superAdmin -->
+        <div *ngIf="user.role == 'superAdmin'">
+          <a class="list-group-item">See all users, groups and channels.</a>
+          <a class="list-group-item">Create users, groups and channels.</a>
+          <a class="list-group-item">Delete users, groups and channels.</a>
+          <a class="list-group-item">Add users to groups and channels.</a>
+          <a class="list-group-item">Remove users from groups and channels.</a>
+          <a class="list-group-item">Change the role of any user to any user.</a>
+        </div>
+        <!-- /superAdmin -->
+        <!-- groupAdmin -->
+        <div *ngIf="user.role == 'groupAdmin'">
+          <a class="list-group-item">See all users, groups and channels.</a>
+          <a class="list-group-item">Create users, groups and channels.</a>
+          <a class="list-group-item">Delete groups and channels.</a>
+          <a class="list-group-item">Add users to groups and channels.</a>
+          <a class="list-group-item">Remove users from groups and channels.</a>
+          <a class="list-group-item">Promote a user from 'regularUser' to 'groupAssistant'.</a>
+        </div>
+        <!-- /groupAdmin -->
+        <!-- groupAssistant -->
+        <div *ngIf="user.role == 'groupAssistant'">
+          <a class="list-group-item">Within groups user is a group assistant of:</a>
+          <div class="list-group">
+            <a class="list-group-item secondaryItem">Add or remove users from channels.</a>
+            <a class="list-group-item secondaryItem">Create a channel.</a>
+          </div>
+        </div>
+        <!-- /groupAssistant -->
+        <!-- regularUser -->
+        <div *ngIf="user.role == 'regularUser'">
+          <a class="list-group-item">You have no special privileges.</a>
+        </div>
+        <!-- /regularUser -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Privileges -->
+
 <!-- Group & Channel List -->
-<div class="card" id="groupList">
+<div class="card box" id="groupList">
   <div class="card-body">
     <h4 class="card-title text-center mb-4 mt-1">Your Groups</h4>
     <h6 class="card-subtitle mb-2 text-muted text-center" id="groupSubtitle">& Channels</h6>

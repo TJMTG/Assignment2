@@ -1,1 +1,25 @@
-<p>group-create works!</p>
+<div *ngIf="userRole == 'superAdmin' || userRole == 'groupAdmin'" class="card">
+  <div class="card-body">
+    <h4 class="card-title text-center mb-4 mt-1">Create Group</h4>
+    <hr>
+    <p class="list-group-item text-success text-center" id="successFeedback">
+      User '{{userSuccessMessage}}' successfully created.
+    </p>
+    <a class="list-group-item text-danger text-center" id="failFeedback">
+      {{failMessage}}
+    </a>
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <input
+            class="form-control" type="text" placeholder="Name"
+            id="groupFormName" [(ngModel)]="groupFormName" name="groupFormName"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" (click)="createGroupClicked()">Create</button>
+      </div>
+    </form>
+  </div>
+</div>

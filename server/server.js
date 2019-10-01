@@ -2,8 +2,7 @@
 // Import modules
 //
 const     express = require('express');
-
-const app = express();
+const         app = express();
 
 const        http = require('http').Server(app);
 const  bodyParser = require('body-parser');
@@ -43,33 +42,30 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser:true, useUnifiedTopology:
     //
     // Socket
     //
-    sockets.connect(app,io,db);
+    sockets.connect(app, io, db);
 
-    //
-    // login
-    //
-    require("./route/user/login")(app, db);
-    
     //
     // User service routing (CRUD)
     //
     require("./route/user/create.js")(db,app);
-    require("./route/user/retrieve.js")(db,app,ObjectID);
+    require("./route/user/retrieve/login.js")(db,app,ObjectID);
+    require("./route/user/retrieve/one.js")(db,app,ObjectID);
+    require("./route/user/retrieve/all.js")(db, app);
     require("./route/user/update.js")(db,app,ObjectID);
     require("./route/user/delete.js")(db,app,ObjectID);
     
 
     //
-    // Groups routing (CRUD)
+    // Group service routing (CRUD)
     //
-    /*
     require("./route/group/create.js")(db,app);
-    require("./route/group/retrieve.js")(db,app,ObjectID);
+    require("./route/group/retrieve/one.js")(db,app,ObjectID);
+    require("./route/group/retrieve/all.js")(db,app,ObjectID);
     require("./route/group/update.js")(db,app,ObjectID);
     require("./route/group/delete.js")(db,app,ObjectID);
-    */
+    
     //
-    // Channels routing (CRUD)
+    // Channel service routing (CRUD)
     //
     /*
     require("./route/channel/create.js")(db,app);

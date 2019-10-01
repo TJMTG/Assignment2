@@ -14,20 +14,29 @@
     //
 
 module.exports = function(db, app){
-    console.log("+-------------------------------------------\\");
-    console.log("| Inside 'user/update.js'.");
-    console.log("|     value inputed for ->");
-    console.log("|     value inputed for ->");
-    console.log("+-------------------------------------------/");
-    console.log();
-    app.post("/user/update",function(req,res){
+    app.post("/user/update", async function(req,res){
+        console.log("/user/update");
         if(!req.body){
-            console.log();
             return res.sendStatus(400)
         }
-        user = req.body //create new variable to handle inputed information
+        oldUsername = req.body.oldUsername;
+        //userObjectID = req.body.userObjectID;
+        user = req.body.user;
         const collection = db.collection("users");
-        //do mongo query
-        //do stuff with results
+        let count = await collection.find({"username":user.username}).count();
+        if(count == 0){
+            //_id:ObjectId(userObjectID)
+            collection.updateOne({username:oldUsername},{$set:{username: user.username, password:user.password, role: user.role}},(err)=>{
+                if(err) throw err;
+                let message = "User '" + user.username + "' updated.";
+                console.log(message);
+                //console.log(user);
+                res.send({'ok':true, "message":message});
+            })
+        } else {
+            let message = "User with that username already exists.";
+            console.log(message);
+            res.send({"ok":false, "message":message})
+        }
     });
 }
