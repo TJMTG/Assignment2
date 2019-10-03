@@ -57,6 +57,7 @@ export class ControlsComponent implements OnInit {
     });
   }
 
+  //deletes the selected user from the list when successful
   deleteUserClicked(value){
     if (confirm("Are you sure you want to delete the user '" + value + "'?")){
       this.UserDataService.delete(value).subscribe((data)=>{
@@ -70,6 +71,7 @@ export class ControlsComponent implements OnInit {
     }
   }
 
+  //deletes the slected group from the database when successful
   deleteGroupClicked(name){
     if (confirm("Are you sure you want to delete the group '" + name + "'?")){
       this.GroupDataService.deleteGroup(name).subscribe((data)=>{

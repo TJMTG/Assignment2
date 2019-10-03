@@ -103,6 +103,7 @@ export class GroupUpdateComponent implements OnInit {
     });
   }
 
+  //updates the name of the group in the database when clicked
   updateGroupClicked(){
     let successFeedback = this.tag.nativeElement.querySelector("#successFeedback");
     successFeedback.style.display = "none";
@@ -138,6 +139,7 @@ export class GroupUpdateComponent implements OnInit {
     }
   }
 
+  //adds a user to the current group
   addUserClicked(){
     if(this.formAddUser != null && this.formAddUser != undefined){
       this.GroupDataService.updateUsers(this.urlParameterMongoID, this.formAddUser).subscribe((data)=>{
@@ -155,6 +157,7 @@ export class GroupUpdateComponent implements OnInit {
     }
   }
 
+  //removes a user from the current group
   deleteUserClicked(username){
     this.GroupDataService.deleteUser(this.urlParameterMongoID, username).subscribe((data)=>{
       if(data.ok){
@@ -169,6 +172,7 @@ export class GroupUpdateComponent implements OnInit {
     });
   }
 
+  //makes a user an assistant of the group
   addAssistantClicked(){
     if(this.formAddAssistant != null && this.formAddAssistant != undefined){
       this.GroupDataService.updateAssistants(this.urlParameterMongoID, this.formAddAssistant).subscribe((data)=>{
@@ -186,6 +190,7 @@ export class GroupUpdateComponent implements OnInit {
     }
   }
 
+  //removes a user as an assistant from the group
   deleteAssistantClicked(username){
     this.GroupDataService.deleteAssistant(this.urlParameterMongoID, username).subscribe((data)=>{
       if(data.ok){
@@ -200,6 +205,7 @@ export class GroupUpdateComponent implements OnInit {
     });
   }
 
+  //deletes a channel from the group
   deleteChannelClicked(name){
     this.GroupDataService.deleteChannel(this.urlParameterMongoID, name).subscribe((data)=>{
       if(data.ok){

@@ -38,6 +38,7 @@ export class GroupCreateComponent implements OnInit {
     this.SocketsService.initSocket();
   }
 
+  //adds a group to the database
   createGroupClicked(){
     let tempOne = this.tag.nativeElement.querySelector("#successFeedback");
     tempOne.style.display = "none";

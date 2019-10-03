@@ -40,6 +40,7 @@ export class UserCreateComponent implements OnInit {
     this.SocketsService.initSocket();
   }
 
+  //adds a user to the database if all the inputs are valid
   createUserClicked(){
     let tempOne = this.tag.nativeElement.querySelector("#userSuccessFeedback");
     tempOne.style.display = "none";

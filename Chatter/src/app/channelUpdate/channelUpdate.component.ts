@@ -76,6 +76,7 @@ export class ChannelUpdateComponent implements OnInit {
     this.SocketsService.initSocket();
   }
 
+  //adds a user to a channel, if all inputs are valid
   addUserClicked(){
     if(this.formAddUser != null && this.formAddUser != undefined){
       this.GroupDataService.updateChannelUsers(this.urlParameterMongoID, this.urlParameterChannelname, this.formAddUser).subscribe((data)=>{
@@ -102,6 +103,7 @@ export class ChannelUpdateComponent implements OnInit {
     }
   }
 
+  //deletes a user from a channel, if all inputs are valid
   deleteUserClicked(user){
     this.GroupDataService.deleteChannelUser(this.urlParameterMongoID, user).subscribe((data)=>{
       if(data.ok){

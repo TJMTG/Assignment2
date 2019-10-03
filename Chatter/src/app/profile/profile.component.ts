@@ -59,6 +59,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  //changes the state of the collapsed portions (channels) of the list
   toggleCollapse(groupName){
     let tempIconTag = this.tag.nativeElement.querySelector("#icon_" + groupName);
     let tempListTag = this.tag.nativeElement.querySelector("#list_" + groupName);

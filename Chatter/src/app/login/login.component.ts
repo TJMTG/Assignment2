@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(){}
 
+  //searches the database for a matching pair of username and password, loging the user in if a match is found
   public loginClicked(){
     console.log("Login Clicked.");
     sessionStorage.clear();
@@ -98,6 +99,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  //logs the user out of when the logout button is clicked
   logoutClicked(){
     console.log("Logout Clicked.");
     sessionStorage.clear();

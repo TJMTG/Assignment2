@@ -80,6 +80,7 @@ export class UserUpdateComponent implements OnInit {
     });
   }
  
+  //updates the users information in the databse when run
   updateUserClicked(){
     console.log("role form: ", this.formRole);
     let successFeedback = this.tag.nativeElement.querySelector("#successFeedback");
@@ -150,6 +151,7 @@ export class UserUpdateComponent implements OnInit {
     }
   }
 
+  //manages the file uploded to the form
   fileSelectedChanged(event){
     console.log("File changed.");
     this.formImage = event.target.files[0];

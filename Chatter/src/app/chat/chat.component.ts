@@ -42,6 +42,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  //handles the user clicking the chat button, using sockets to send the mesage to all avalible rooms. Also stores it in a mongoDB.
   chat(){
     if(this.messageContent){
       var today = new Date();
@@ -53,8 +54,10 @@ export class ChatComponent implements OnInit {
     }
   }
   
+  //allows a user to join a channel
   joinChannel(){}
   
+  //allows a user to leave a channel
   leaveChannel(){}
 
 }
