@@ -1,1 +1,39 @@
-<p>chat works!</p>
+
+<div class="card box">
+    <div class="card-body">
+            <h4 class="card-title text-center mb-4 mt-1">Chat</h4>
+            <!--<h5 class="card-subtitle mb-2 text-muted text-center">Group</h5>-->
+            <h6 class="card-subtitle mb-2 text-muted text-center">{{currentGroup}}</h6>
+            <hr>
+            <div id="feedback">
+                <div *ngFor="let notice of notices">
+                    <p class="text-danger text-center">{{notice}}</p>
+                </div>
+            </div>
+            <hr id="feedbackBar">
+            <div class="form-group text-center">
+                <select [(ngModel)]="formGroupList" name="ormGroupList" class="shiftingRow list">
+                    <option [ngValue]="null">Select Group</option>
+                    <option *ngFor="let group of groupList">
+                        {{group.name}}
+                    </option>
+                </select>
+                <!--
+                    <select [(ngModel)]="formChannelList" name="formChannelList" class="shiftingRow list">
+                        <option [ngValue]="null">Select Channel</option>
+                        <option *ngFor="let channel of channelList">
+                            {{channel}}
+                        </option>
+                    </select>
+                -->
+                <button *ngIf="isInChannel" (click)="chat(content)" class="btn btn-primary shiftingRow">Chat</button>
+                <button *ngIf="!isInChannel" (click)="joinChannel()" class="btn btn-primary shiftingRow">Join</button>
+                <button *ngIf="isInChannel" (click)="leaveChannel()" class="btn btn-primary shiftingRow">Leave</button>
+            </div>
+        <hr>
+        <div>
+            <p *ngFor="let message of messages">{{message}}</p>
+        </div>
+
+    </div>
+</div>

@@ -20,7 +20,8 @@ const backendURL = "http://localhost:3000";
 
 export class ControlsComponent implements OnInit {
 
-  userRole = JSON.parse(sessionStorage.getItem("role"));
+  loggedInUsername = JSON.parse(sessionStorage.getItem("username"));
+  loggedInRole = JSON.parse(sessionStorage.getItem("role"));
 
   userList:any = [];
   groupList:any = [];
@@ -38,17 +39,20 @@ export class ControlsComponent implements OnInit {
     if(sessionStorage.getItem("username") == null){
       this.router.navigateByUrl("/login");
     } else {
-      if(JSON.parse(sessionStorage.getItem("role")) == "regularUser"){
+      let role = JSON.parse(sessionStorage.getItem("role"));
+      if(role == "regularUser" || role == "groupAssistant"){
         this.router.navigateByUrl("/profile");
       }
     }
     this.SocketsService.initSocket();
     this.SocketsService.updateUserList();
     this.SocketsService.onNewUserList().subscribe((data)=>{
+      //console.log("Controls, user: ", data);
       this.userList = data;
     });
     this.SocketsService.updateGroupList();
     this.SocketsService.onNewGroupList().subscribe((data)=>{
+      //console.log("Controls, group: ", data);
       this.groupList = data;
     });
   }
@@ -57,7 +61,7 @@ export class ControlsComponent implements OnInit {
     if (confirm("Are you sure you want to delete the user '" + value + "'?")){
       this.UserDataService.delete(value).subscribe((data)=>{
         if(data.ok == true){
-          console.log("true was received.");
+          console.log("User deleted.");
           this.SocketsService.updateUserList();
         } else {
           console.log("Failed to delete user.");
@@ -68,9 +72,12 @@ export class ControlsComponent implements OnInit {
 
   deleteGroupClicked(name){
     if (confirm("Are you sure you want to delete the group '" + name + "'?")){
-      this.GroupDataService.delete(name).subscribe((data)=>{
-        if(data.ok == true){// change to true
+      this.GroupDataService.deleteGroup(name).subscribe((data)=>{
+        if(data.ok == true){
+          console.log("Group deleted.");
           this.SocketsService.updateGroupList();
+        } else {
+          console.log("Failed to delete group.");
         }
       });
     }

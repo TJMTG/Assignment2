@@ -3,7 +3,7 @@ export class User {
     mongoID?:string;
     username?:string;
     password?:string;
-    picture?:string;
+    image?:string;
     role?:string;
     groupsIn?:Array<string>;
     groupChannelsIn?:Array<string>;
@@ -12,7 +12,7 @@ export class User {
             mongoID:string, 
             username:string,
             password:string,
-            picture:string, 
+            image:string, 
             role:string, 
             groupsIn:Array<string>, 
             groupChannelsIn:Array<string>, 
@@ -21,7 +21,7 @@ export class User {
         this.mongoID = mongoID;
         this.username = username;
         this.password = password;
-        this.picture = picture;
+        this.image = image;
         this.role = role;
         this.groupsIn = groupsIn;
         this.groupChannelsIn = groupChannelsIn;

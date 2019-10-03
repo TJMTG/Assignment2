@@ -1,6 +1,6 @@
 
 <!-- List Users (retrieve, update and delete) -->
-<div class="card box" id="userList" *ngIf="userRole == 'superAdmin' || userRole == 'groupAdmin'">
+<div class="card box" id="userList" *ngIf="loggedInRole == 'superAdmin' || loggedInRole == 'groupAdmin'">
   <div class="card-body">
     <h4 class="card-title text-center mb-4 mt-1">Users</h4>
       <table class="table">
@@ -8,15 +8,15 @@
           <th>Username</th>
           <th>Role</th>
           <th></th>
-          <th *ngIf="userRole == 'superAdmin'"></th>
+          <th *ngIf="loggedInRole == 'superAdmin'"></th>
         </tr>
         <tr style="padding-top:20px;" *ngFor="let user of userList"> 
           <td>{{user.username}}</td> 
           <td>{{user.role}}</td>  
           <td>
-            <button class="btn btn-primary" [routerLink]="['/userUpdate', user.username]">Edit</button>
+            <button *ngIf="(loggedInRole == 'superAdmin') || (loggedInRole == 'groupAdmin' && (user.role == 'regularUser' || user.role == 'groupAssistant'))" class="btn btn-primary" [routerLink]="['/userUpdate', user._id]">Edit</button>
           </td>
-          <td *ngIf="userRole == 'superAdmin'">
+          <td *ngIf="loggedInRole == 'superAdmin'">
             <button class="btn btn-danger" (click)="deleteUserClicked(user.username)">Delete</button>
           </td>
         </tr>
@@ -34,21 +34,23 @@
 </div>
 
 <!-- List Groups (retrieve, update and delete) -->
-<div class="card box" id="groupList" *ngIf="userRole == 'superAdmin' || userRole == 'groupAdmin'">
+<div class="card box" id="groupList" *ngIf="loggedInRole == 'superAdmin' || loggedInRole == 'groupAdmin'">
   <div class="card-body">
     <h4 class="card-title text-center mb-4 mt-1">Groups</h4>
       <table class="table">
         <tr>
           <th>Name</th>
+          <th>Channels</th>
           <th>Users</th>
           <th></th>
           <th></th>
         </tr>
         <tr style="padding-top:20px;" *ngFor="let group of groupList"> 
-          <td>{{group.name}}</td> 
-          <td>{{group.totalUsers}}</td>  
+          <td>{{group.name}}</td>
+          <td>{{group.channels.length}}</td>
+          <td>{{group.users.length}}</td>  
           <td>
-            <button class="btn btn-primary" [routerLink]="['/groupUpdate', group.name]">Edit</button>
+            <button class="btn btn-primary" [routerLink]="['/groupUpdate', group._id]">Edit</button>
           </td>
           <td>
             <button class="btn btn-danger" (click)="deleteGroupClicked(group.name)">Delete</button>

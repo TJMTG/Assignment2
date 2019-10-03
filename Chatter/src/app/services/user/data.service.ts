@@ -15,8 +15,8 @@ export class UserDataService {
     return this.http.post<any>('http://localhost:3000/user/create', user);
   }
 
-  retrieve(value){
-    return this.http.post<any>('http://localhost:3000/user/retrieve/one', {"username":value});
+  retrieve(mongoID){
+    return this.http.post<any>('http://localhost:3000/user/retrieve/one', {"mongoID": mongoID});
   }
 
     retrieveLogin(user:User){
@@ -27,8 +27,8 @@ export class UserDataService {
       return this.http.get<any>('http://localhost:3000/user/retrieve/all');
     }
 
-  update(oldUsername, user:User){
-    return this.http.post<any>('http://localhost:3000/user/update', {"oldUsername":oldUsername, "user":user});
+  update(user:User){
+    return this.http.post<any>('http://localhost:3000/user/update', user);
   }
 
   delete(value){

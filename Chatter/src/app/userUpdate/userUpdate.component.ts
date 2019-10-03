@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { User } from '../classes/user/user';
 import { UserDataService } from '../services/user/data.service';
+import { ImageUploadService } from '../services/image/upload.service';
 
 
 
@@ -12,40 +13,67 @@ import { UserDataService } from '../services/user/data.service';
   styleUrls: ['./userUpdate.component.scss']
 })
 export class UserUpdateComponent implements OnInit {
-  usernameParameter;
-  userRole = JSON.parse(sessionStorage.getItem("role"));
+
+  loggedInUsername = JSON.parse(sessionStorage.getItem("username"));
+  loggedInRole = JSON.parse(sessionStorage.getItem("role"));
+  urlParameterMongoID;
 
   //
-  // Create user form
+  // Feedback
   //
-  userFormUsername = "";
-  userFormPassword = "";
-  userFormRole = "";
-  userSuccessMessage = "";
-  userFailMessages:Array<string>;
+  successMessage = "";
+  failMessages:Array<string> = [""];
 
   //
-  // 
+  // Form: Update User
   //
+  formImage = null;
+  formUsername = "";
+  formPassword = "";
+  formRole = "";
+
+  //
+  // Target User Infomation
+  //
+  user = {
+    "mongoID": null,
+    "image": "",
+    "username": "",
+    "password": "",
+    "role":""
+  }
   oldUsername = "";
+  oldRole = "";
 
   constructor(
     private UserDataService: UserDataService,
     private route: ActivatedRoute, 
     private router: Router,
-    private tag: ElementRef
+    private tag: ElementRef,
+    private ImageUploadService: ImageUploadService
   ){}
 
   ngOnInit() {
+    if(sessionStorage.getItem("username") == null){
+      this.router.navigateByUrl("/login");
+    } else {
+      if(JSON.parse(sessionStorage.getItem("role")) == "regularUser"){
+        this.router.navigateByUrl("/profile");
+      }
+    }
     this.route.paramMap.subscribe((params)=>{
-      this.usernameParameter = params.get('username');
+      this.urlParameterMongoID = params.get('mongoID');
     });
-    this.UserDataService.retrieve(this.usernameParameter).subscribe((data)=>{
+    this.UserDataService.retrieve(this.urlParameterMongoID).subscribe((data)=>{
       if(data.ok){
-        this.oldUsername = data.results[0].username;
-        this.userFormUsername = data.results[0].username;
-        this.userFormPassword = data.results[0].password;
-        this.userFormRole = data.results[0].role;
+        console.log(data);
+        this.user.mongoID = data.results[0]._id;
+        this.user.username = data.results[0].username;
+        this.user.password = data.results[0].password;
+        this.user.role = data.results[0].role;
+        this.formUsername = this.user.username;
+        this.formPassword = this.user.password;
+        this.formRole = this.user.role;
       } else {
         console.log("Failed to retrieve data.");
       }
@@ -53,43 +81,78 @@ export class UserUpdateComponent implements OnInit {
   }
  
   updateUserClicked(){
-    let tempOne = this.tag.nativeElement.querySelector("#userSuccessFeedback");
-    tempOne.style.display = "none";
-    let tempTwo = this.tag.nativeElement.querySelector("#userFailFeedback");
-    tempTwo.style.display = "none";
-    this.userSuccessMessage = "";
-    this.userFailMessages = [];
+    console.log("role form: ", this.formRole);
+    let successFeedback = this.tag.nativeElement.querySelector("#successFeedback");
+    successFeedback.style.display = "none";
+    let failFeedback = this.tag.nativeElement.querySelector("#failFeedback");
+    failFeedback.style.display = "none";
+    let feedbackBar = this.tag.nativeElement.querySelector("#feedbackBar");
+    feedbackBar.style.display = "none";
+    this.successMessage = "";
+    this.failMessages = [];
     let error = false;
     let feedback = [];
-    if(this.userFormUsername == ""){
+    if(this.formUsername == ""){
       error = true;
-      feedback.push("Create User: username field is empty.");
+      feedback.push("Update User: username field is empty.");
     }
-    if(this.userFormPassword == ""){
+    if(this.formPassword == ""){
       error = true;
-      feedback.push("Create User: password field is empty.");
+      feedback.push("Update User: password field is empty.");
     }
-    if(this.userFormRole == ""){
+    if(this.formRole == ""){
       error = true;
-      feedback.push("Create User: role field is empty.");
+      feedback.push("Update User: role field is empty.");
     }
     if(error){
-      this.userFailMessages = feedback;
-      tempTwo.style.display = "block";
+      this.failMessages = feedback;
+      failFeedback.style.display = "block";
+      feedbackBar.style.display = "block";
     } else {
-      let user: User = new User(null, this.userFormUsername, this.userFormPassword, null, this.userFormRole, null, null, null);
-      this.UserDataService.update(this.oldUsername, user).subscribe((data)=>{
-        if(data.ok){
-          //this.userSuccessMessage = user.username;
-          //tempOne.style.display = "block";
-          //this.usernameParameter = user.username;
-          this.router.navigateByUrl("/controls");
-        } else {
-          this.userFailMessages.push(data.message);
-          tempTwo.style.display = "block";
-        }
-      });
+      if(this.formImage == null){
+        this.user.username = this.formUsername;
+        this.user.password = this.formPassword;
+        this.user.role = this.formRole;
+        this.UserDataService.update(this.user).subscribe((data)=>{
+          console.log(data.ok);
+          if(data.ok){
+            this.successMessage = "User '" + this.user.username + "' successfully updated.";
+            successFeedback.style.display = "block";
+            feedbackBar.style.display = "block";
+          } else {
+            this.failMessages.push(data.message);
+            failFeedback.style.display = "block";
+            feedbackBar.style.display = "block";
+          }
+        });
+      } else {
+        const fd = new FormData();
+        fd.append("image", this.formImage, this.formImage.name);
+        this.ImageUploadService.imageUpload(fd).subscribe(res=>{
+          console.log(res);
+          this.user.image = res.data.filename;
+          this.user.username = this.formUsername;
+          this.user.password = this.formPassword;
+          this.user.role = this.formRole;
+          this.UserDataService.update(this.user).subscribe((data)=>{
+            if(data.ok){
+              this.successMessage = "User '" + this.user.username + "' successfully updated.";
+              successFeedback.style.display = "block";
+              feedbackBar.style.display = "block";
+            } else {
+              this.failMessages.push(data.message);
+              failFeedback.style.display = "block";
+              feedbackBar.style.display = "block";
+            }
+          });
+        });
+      }
     }
+  }
+
+  fileSelectedChanged(event){
+    console.log("File changed.");
+    this.formImage = event.target.files[0];
   }
 
 }

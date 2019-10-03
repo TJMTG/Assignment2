@@ -1,5 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { SocketsService } from '../services/sockets.service';
+import { UserDataService } from '../services/user/data.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,41 +11,52 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  user = {
-    username: JSON.parse(sessionStorage.getItem("username")),
-    role: JSON.parse(sessionStorage.getItem("role"))
-  };
+  loggedInMongoID = JSON.parse(sessionStorage.getItem("mongoID"))
+  loggedInUsername = JSON.parse(sessionStorage.getItem("username"));
+  loggedInRole = JSON.parse(sessionStorage.getItem("role"));
 
-  groups = [
-    {
-      name:"group1", 
-      channels:[
-        {name:"channel1"}, 
-        {name:"channel2"}, 
-        {name:"channel3"}
-      ]
-    },
-    {
-      name:"group2", 
-      channels:[
-      ]
-    },
-    {
-      name:"group3", 
-      channels:[
-        {name:"channelA"}, 
-        {name:"channelB"}, 
-        {name:"channelC"}
-      ]
-    }
-  ];
+  groupList:any = [];
 
-  constructor(private router: Router, private tag: ElementRef) {}
+  loggedInUser = {
+    "image": ""
+  }
+
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private tag: ElementRef,
+    private SocketsService: SocketsService,
+    private UserDataService: UserDataService
+  ){}
 
   ngOnInit(){
     if(sessionStorage.getItem("username") == null){
       this.router.navigateByUrl("/login");
     }
+    this.SocketsService.initSocket();
+    this.SocketsService.updateGroupList();
+    this.SocketsService.onNewGroupList().subscribe((data: any[])=>{
+      //console.log("Controls, group: ", data);
+      let i;
+      for(i = 0; i < data.length; i++){
+        let x;
+        for(x = 0; x < data[i].users.length; x++){
+          if(data[i].users[x] == this.loggedInUsername){
+            this.groupList.push(data[i])
+            break
+          }
+        }
+      }
+    });
+    this.UserDataService.retrieve(this.loggedInMongoID).subscribe((data)=>{
+      if(data.ok){
+        //console.log(data);
+        this.loggedInUser.image = data.results[0].image;
+        //console.log(this.loggedInUser.image);
+      } else {
+        console.log("Failed to retrieve data.");
+      }
+    });
   }
 
   toggleCollapse(groupName){

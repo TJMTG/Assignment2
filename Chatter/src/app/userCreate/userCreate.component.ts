@@ -71,7 +71,8 @@ export class UserCreateComponent implements OnInit {
       let user = {
         "username": this.userFormUsername,
         "password": this.userFormPassword,
-        "role": this.userFormRole
+        "role": this.userFormRole,
+        "image": ""
       }
       this.UserDataService.create(user).subscribe((data)=>{
         if(data.ok){

@@ -1,6 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { SocketsService } from '../services/sockets.service';
+import { UserDataService } from '../services/user/data.service';
+import { GroupDataService } from '../services/group/data.service';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -8,12 +12,49 @@ import { Router } from '@angular/router';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private router: Router, private tag: ElementRef){}
+  groupList;
+  channelList;
+
+  formGroupname;
+  formChannelname;
+
+  messages = [];
+  ioConnection;
+  messageContent = "";
+
+  constructor(
+    private router: Router,
+    private tag: ElementRef,
+    private SocketsService: SocketsService,
+    private UserDataService: UserDataService,
+    private GroupDataService: GroupDataService
+  ){}
 
   ngOnInit(){
     if(sessionStorage.getItem("username") == null){
       this.router.navigateByUrl("/login");
     }
+    this.SocketsService.initSocket();
+    this.SocketsService.updateGroupList();
+    this.SocketsService.onNewGroupList().subscribe((data: any)=>{
+      this.groupList = data;
+      console.log(this.groupList, data)
+    });
   }
+
+  chat(){
+    if(this.messageContent){
+      var today = new Date();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      this.SocketsService.chat(this.messageContent);
+      this.messageContent = "";
+    }else{
+      console.log("no message");
+    }
+  }
+  
+  joinChannel(){}
+  
+  leaveChannel(){}
 
 }

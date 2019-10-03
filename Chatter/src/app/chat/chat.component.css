@@ -1,0 +1,16 @@
+#feedback{
+    display: none;
+}
+
+#feedbackBar{
+    display: none;
+}
+
+.shiftingRow{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.list{
+    min-height: 38px;
+}

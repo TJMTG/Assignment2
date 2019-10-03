@@ -1,1 +1,68 @@
-<p>channel-update works!</p>
+<!-- Update Channel -->
+<div *ngIf="userRole == 'superAdmin' || userRole == 'groupAdmin'" class="card box">
+  <div class="card-body">
+    <h4 class="card-title text-center mb-4 mt-1">Update Channel</h4>
+    <hr>
+    <p class="text-success text-center" id="successFeedback">
+      {{successMessage}}
+    </p>
+    <div id="failFeedback">
+        <div *ngFor="let failMessage of failMessages">
+          <p class="text-danger text-center">{{failMessage}}</p>
+        </div>
+      </div>
+    <hr id="feedbackBar">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <input
+            class="form-control" type="text" placeholder="Name"
+            id="formName" [(ngModel)]="formName" name="formName"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" (click)="updateChannelClicked()">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- /Update Channel -->
+
+<!-- List Users (retrieve, update and delete) -->
+<div class="card box" *ngIf="userRole == 'superAdmin' || userRole == 'groupAdmin'">
+  <div class="card-body">
+    <h4 class="card-title text-center mb-4 mt-1">Users</h4>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th></th>
+        </tr>
+        <tr style="padding-top:20px;" *ngFor="let user of userChannelList"> 
+          <td>{{user}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteUserClicked(user)">Delete</button>
+          </td>
+        </tr>
+        <!-- In the event of 'no groups' -->
+        <tr *ngIf="userChannelList === undefined">
+          <td colspan="4" style="text-align: center;">
+            There are no users in this Channel.
+          </td>
+        </tr>
+    </table>
+    <div class="form-group">
+      <form>
+        <select class="left" id="formAddUser" [(ngModel)]="formAddUser" name="formAddUser">
+          <ng-container *ngFor="let user of userGroupList">
+              <option *ngIf="userChannelList.indexOf(user) == -1" value="{{user}}" type="text">
+                  {{user}}
+              </option> 
+          </ng-container> 
+        </select>
+        <button type="submit" class="btn btn-primary btn-block right" (click)="addUserClicked()">Add User To Channel</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /List Users (retrieve, update and delete) -->

@@ -1,8 +1,8 @@
-#userSuccessFeedback{
+#successFeedback{
     display: none;
 }
 
-#userFailFeedback{
+#failFeedback{
     display: none;
 }
 
@@ -15,4 +15,9 @@
     min-width: 370px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 2.25rem;
+}
+
+#imageMessage{
+    display: block;
 }

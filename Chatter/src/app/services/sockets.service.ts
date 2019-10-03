@@ -48,9 +48,6 @@ export class SocketsService {
     return observable;
   }
 
-
-
-
   onMessage(){
     let observable = new Observable(observer=>{
       this.socket.on("message", (data) => observer.next(data));
@@ -58,18 +55,8 @@ export class SocketsService {
     return observable;
   }
 
-  chat(message:Message){
-    this.socket.emit("message",message);
+  chat(message){
+    this.socket.emit("message", message);
   }
 
-  prodcount(){
-    this.socket.emit("prodcount","check yourself");
-  }
-
-  onProdcount(){
-    let observable = new Observable(observer=>{
-      this.socket.on("prodcount", (data) => observer.next(data));
-    });
-    return observable;
-  }
 }

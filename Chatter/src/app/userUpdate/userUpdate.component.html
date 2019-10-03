@@ -2,59 +2,61 @@
 <div class="card box">
   <div class="card-body">
     <h4 class="card-title text-center mb-4 mt-1">Update User</h4>
-    <hr>
-    <p class="text-success text-center" id="userSuccessFeedback">
-      User '{{userSuccessMessage}}' successfully updated.
-    </p>
-    <div id="userFailFeedback">
-      <div *ngFor="let failMessage of userFailMessages">
-        <p class="text-danger text-center">{{failMessage}}</p>
+    <!-- Login Form Feedback -->
+      <hr>
+      <p id="successFeedback" class="text-success text-center">{{successMessage}}</p>
+      <div id="failFeedback">
+          <div *ngFor="let failMessage of failMessages">
+              <p class="text-danger text-center">{{failMessage}}</p>
+          </div>
       </div>
-    </div>
-    <hr id="feedbackBar">
+      <hr id="feedbackBar">
+    <!-- /Login Form Feedback -->
     <form>
       <div class="form-group">
         <div class="input-group">
-          <input
-            class="form-control" type="text" placeholder="Username"
-            id="userFormUsername" [(ngModel)]="userFormUsername" name="userFormUsername"
-          >
+          <input (change)="fileSelectedChanged($event)" id="formImage" name="formImage" type="file">
         </div>
       </div>
       <div class="form-group">
         <div class="input-group">
           <input
-            class="form-control" type="text" placeholder="Password"
-            id="userFormPassword" [(ngModel)]="userFormPassword" name="userFormPassword"
+            id="formUsername" class="form-control" placeholder="Username"
+            type="text" [(ngModel)]="formUsername" name="formUsername"
+          >
+        </div>
+      </div>
+      <div *ngIf="loggedInRole == 'superAdmin' || loggedInUsername == user.username" class="form-group">
+        <div class="input-group">
+          <input
+            id="formPassword" class="form-control" placeholder="Password"
+            type="text" [(ngModel)]="formPassword" name="formPassword"
           >
         </div>
       </div>
       <div class="form-group">
         <div class="select-group">
-          <span *ngIf="userRole == 'superAdmin'">
-            <select class="form-control" [(ngModel)]="userFormRole" name="userFormRole" placeholder="Role">
-              <option value="{{userRole}}" selected>{{userRole}}</option>
-              <option value="superAdmin">superAdmin</option>
-              <option value="groupAdmin">groupAdmin</option>
-              <option value="groupAssistant">groupAssistant</option>
-              <option value="regularUser">regularUser</option>
-            </select>
-          </span>
-          <span *ngIf="userRole == 'groupAdmin'">
-            <select class="form-control" [(ngModel)]="userFormRole" name="userFormRole">
-              <option value="{{userRole}}" selected>{{userRole}}</option>
-              <option value="groupAssistant">groupAssistant</option>
-              <option value="regularUser">regularUser</option>
-            </select>
-          </span>
-          <span *ngIf="userRole == 'groupAssistant' || userRole == 'regularUser'">
-              <input readonly value="{{userRole}}" placeholder="{{userRole}}" [(ngModel)]="userFormRole" name="userFormRole">
+          <select *ngIf="loggedInRole == 'superAdmin'" id="formRole" class="form-control" [(ngModel)]="formRole" name="formRole" placeholder="Role">
+            <option value="{{user.role}}" selected>{{user.role}}</option>
+            <option *ngIf="user.role !== 'superAdmin'" value="superAdmin">superAdmin</option>
+            <option *ngIf="user.role !== 'groupAdmin'" value="groupAdmin">groupAdmin</option>
+            <option *ngIf="user.role !== 'groupAssistant'" value="groupAssistant">groupAssistant</option>
+            <option *ngIf="user.role !== 'regularUser'" value="regularUser">regularUser</option>
+          </select>
+          <select *ngIf="loggedInRole == 'groupAdmin'" id="formRole" class="form-control" [(ngModel)]="formRole" name="formRole" placeholder="Role">
+            <option value="{{user.role}}" selected>{{user.role}}</option>
+            <option *ngIf="user.role !== 'groupAssistant'" value="groupAssistant">groupAssistant</option>
+            <option *ngIf="user.role !== 'regularUser'" value="regularUser">regularUser</option>
+          </select>
+          <span *ngIf="loggedInRole == 'groupAssistant' || loggedInRole == 'regularUser'">
+              <input readonly value="{{oldRole}}" placeholder="{{oldRole}}" [(ngModel)]="formRole" name="formRole">
           </span>
         </div>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" (click)="updateUserClicked()">Update</button>
+        <button (click)="updateUserClicked()" type="submit" class="btn btn-primary btn-block">Update</button>
       </div>
     </form>
   </div>
 </div>
+<!-- /Update User -->

@@ -17,8 +17,8 @@ export class GroupCreateComponent implements OnInit {
   // Create group form
   //
   groupFormName = "";
-  groupSuccessMessage = "";
-  groupFailMessages:Array<string>;
+  successMessage = "";
+  failMessages:Array<string>;
 
   constructor(
     private router: Router, 
@@ -43,30 +43,38 @@ export class GroupCreateComponent implements OnInit {
     tempOne.style.display = "none";
     let tempTwo = this.tag.nativeElement.querySelector("#failFeedback");
     tempTwo.style.display = "none";
-    this.groupSuccessMessage = "";
-    this.groupFailMessages = [];
+    let feedbackBar = this.tag.nativeElement.querySelector("#feedbackBar");
+    feedbackBar.style.display = "none";
+    this.successMessage = "";
+    this.failMessages = [];
     let error = false;
     let feedback = [];
     if(this.groupFormName == ""){
       error = true;
-      feedback.push("Create User: username field is empty.");
+      feedback.push("Create Group: name field is empty.");
     }
     if(error){
-      this.groupFailMessages = feedback;
+      this.failMessages = feedback;
       tempTwo.style.display = "block";
+      feedbackBar.style.display = "block";
     } else {
       let group = {
-        "name": this.groupFormName
+        "name": this.groupFormName,
+        "channels": [],
+        "assistedBy": [],
+        "users": []
       }
       this.GroupDataService.create(group).subscribe((data)=>{
         if(data.ok){
-          this.groupSuccessMessage = group.name;
+          this.successMessage = group.name;
           tempOne.style.display = "block";
+          feedbackBar.style.display = "block";
           this.groupFormName = "";
         } else {
           console.log(data);
-          this.groupFailMessages.push(data.message);
+          this.failMessages.push(data.message);
           tempTwo.style.display = "block";
+          feedbackBar.style.display = "block";
         }
       });
     }
